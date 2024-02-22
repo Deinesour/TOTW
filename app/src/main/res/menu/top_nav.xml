@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/socialMedia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Social Media Links" />
+    <item
+        android:id="@+id/about"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="About, Staff, Contact" />
+    <item
+        android:id="@+id/photoGallery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Photo Gallery" />
+    <item
+        android:id="@+id/newsletter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Sign Up For Newsletter" />
+    <item
+        android:id="@+id/notifications"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Notifications" />
+</menu>
