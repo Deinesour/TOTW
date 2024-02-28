@@ -1,7 +1,9 @@
 package com.example.totw
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -31,7 +33,7 @@ class MainActivity : AppCompatActivity() {
             true
         }
     }
-    private fun setCurrentFragment(fragment: Fragment)=
+    fun setCurrentFragment(fragment: Fragment)=
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.flFragment,fragment)
             commit()
@@ -40,5 +42,17 @@ class MainActivity : AppCompatActivity() {
         val menuInflater = menuInflater
         menuInflater.inflate(R.menu.top_nav, menu)
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val aboutFrag = AboutFragment()
+        return when (item.itemId) {
+            R.id.about -> {
+                setCurrentFragment(aboutFrag)
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }
