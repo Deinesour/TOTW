@@ -46,9 +46,26 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val aboutFrag = AboutFragment()
+        val socialFrag = SocialMediaFragment()
+        val notifFrag = NotificationsFragment()
+        val newsletterFrag = NewsletterFragment()
+        val photoGalleryFrag = PhotoGalleryFragment()
+
         return when (item.itemId) {
             R.id.about -> {
                 setCurrentFragment(aboutFrag)
+                true
+            }R.id.socialMedia -> {
+                setCurrentFragment(socialFrag)
+                true
+            }R.id.notifications -> {
+                setCurrentFragment(notifFrag)
+                true
+            }R.id.newsletter -> {
+                setCurrentFragment(newsletterFrag)
+                true
+            }R.id.photoGallery -> {
+                setCurrentFragment(photoGalleryFrag)
                 true
             }
             else -> super.onOptionsItemSelected(item)
