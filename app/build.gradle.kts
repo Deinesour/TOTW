@@ -70,4 +70,5 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     implementation("com.google.android.material:material:1.2.0")
     implementation("com.google.android.material:material:1.5.0")
+    implementation("com.android.volley:volley:1.2.1")
 }
