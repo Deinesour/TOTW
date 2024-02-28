@@ -51,7 +51,6 @@ class MainActivity : AppCompatActivity() {
                 setCurrentFragment(aboutFrag)
                 true
             }
-
             else -> super.onOptionsItemSelected(item)
         }
     }
