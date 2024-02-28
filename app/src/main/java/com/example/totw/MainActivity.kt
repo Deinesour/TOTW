@@ -28,12 +28,11 @@ class MainActivity : AppCompatActivity() {
                 R.id.home->setCurrentFragment(homeFrag)
                 R.id.news->setCurrentFragment(newsFrag)
                 R.id.events->setCurrentFragment(eventsFrag)
-
             }
             true
         }
     }
-    fun setCurrentFragment(fragment: Fragment)=
+    private fun setCurrentFragment(fragment: Fragment)=
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.flFragment,fragment)
             commit()
