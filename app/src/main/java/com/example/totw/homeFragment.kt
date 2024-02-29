@@ -1,11 +1,6 @@
 package com.example.totw
 
-import android.graphics.Bitmap
 import android.os.Bundle
-import android.os.Environment
-import android.os.Handler
-import android.os.HandlerThread
-import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,15 +10,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.android.volley.Request
 import com.android.volley.RequestQueue
-import com.android.volley.toolbox.ImageRequest
+import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonConfiguration
 import org.json.JSONException
 import org.json.JSONObject
-import java.io.File
-import java.io.FileNotFoundException
-import java.io.FileOutputStream
-import java.io.IOException
 
 /**
  * A simple [Fragment] subclass.
@@ -36,46 +29,14 @@ data class Article (
     val title: String,
     val content: String
 )
-class homeFragment : Fragment() {
 
+class homeFragment : Fragment() {
     private lateinit var requestQueue: RequestQueue
+    private lateinit var webView: WebView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        requestQueue = Volley.newRequestQueue(requireContext())
-    }
-
-    private fun makeGetRequest(url: String): String {
-        var title = ""
-        var rendered = ""
-
-        class Thread(name: String?, private val handler: Handler) :
-            HandlerThread(name) {
-            override fun run() {
-
-                val stringRequest = StringRequest(
-                    Request.Method.GET, url,
-                    { response ->
-                        // Handle the response
-                        var jsonObject: JSONObject? = null
-                        jsonObject = JSONObject(response)
-                        val content = jsonObject.getJSONObject("content")
-                        rendered = content.getString("rendered")
-                        Toast.makeText(context, rendered, Toast.LENGTH_LONG).show()
-                    },
-                    { error ->
-                        // Handle errors
-                        error.printStackTrace()
-                    })
-                requestQueue.add(stringRequest)
-                val message = Message.obtain()
-                message.what = 1
-                handler.sendMessage(message)
-            }
-        }
-
-        return title
     }
 
     override fun onCreateView(
@@ -93,11 +54,44 @@ class homeFragment : Fragment() {
         val url = "https://topotheworld.org/wp-json/wp/v2/posts?per_page=1"
         val webView: WebView = view.findViewById(R.id.webViewHome)
         val textView: TextView = view.findViewById(R.id.textView)
-        val title = makeGetRequest(url)
+        //webView.loadUrl(url)
+        requestQueue = Volley.newRequestQueue(requireActivity().applicationContext)
 
-        textView.text = title
+        // make a JSON request on a background thread
 
-        webView.loadUrl(url)
+        Thread {
+            makeJsonRequest(url, webView, textView)
+        }.start()
+
+    }
+    private fun makeJsonRequest(url: String, webView: WebView, textView: TextView) {
+        val stringRequest = StringRequest(Request.Method.GET, url,
+            { response ->
+                // Handle the response on the main/UI thread if needed
+
+                //val title = response.getJSONObject("title")
+
+                //val content = jsonObject.getJSONObject("content")
+                //val rendered = content.getString("rendered")
+                requireActivity().runOnUiThread {
+                    // Process jsonResponse
+                    Toast.makeText(requireContext(), "In function", Toast.LENGTH_LONG).show()
+                    //view?.findViewById<WebView>(R.id.webViewHome)
+                        //?.loadData(rendered, "text/html", null)
+                    textView.text = response
+                }
+            },
+            { error ->
+                // Handle error on the main/UI thread if needed
+                requireActivity().runOnUiThread {
+                    // Handle error
+                    error.printStackTrace()
+                    Toast.makeText(requireContext(), "Error fetching JSON.", Toast.LENGTH_LONG).show()
+                }
+            })
+
+        // Add the request to the RequestQueue.
+        requestQueue.add(stringRequest)
     }
 }
 
