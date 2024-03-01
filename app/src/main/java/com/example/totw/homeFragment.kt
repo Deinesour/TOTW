@@ -10,16 +10,16 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.android.volley.Request
 import com.android.volley.RequestQueue
-import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonConfiguration
-import org.json.JSONException
-import org.json.JSONObject
+import org.json.JSONArray
 
-
-data class Article (
+/**
+ * A simple [Fragment] subclass.
+ * Use the [homeFragment.newInstance] factory method to
+ * create an instance of this fragment.
+ */
+data class Post(
     val id: Int,
     val title: String,
     val content: String
@@ -28,6 +28,7 @@ data class Article (
 class homeFragment : Fragment() {
     private lateinit var requestQueue: RequestQueue
     private lateinit var webView: WebView
+    private lateinit var textView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,21 +40,21 @@ class homeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val url = "https://topotheworld.org/wp-json/wp/v2/posts?per_page=1"
-        val webView: WebView = view.findViewById(R.id.webViewHome)
-        val textView: TextView = view.findViewById(R.id.textView)
-        //webView.loadUrl(url)
+        // URL to fetch JSON from
+        val url = "https://topotheworld.org/wp-json/wp/v2/posts?fields=id,title,content"
+
+        webView = view.findViewById(R.id.webViewHome)
+        textView = view.findViewById(R.id.textViewHomeTitle)
         requestQueue = Volley.newRequestQueue(requireActivity().applicationContext)
 
-        // make a JSON request on a background thread
-
+        // make a JSON request on a background thread - required by Android
+        textView.text = "Loading Content..."
         Thread {
             makeJsonRequest(url, webView, textView)
         }.start()
@@ -62,36 +63,45 @@ class homeFragment : Fragment() {
     private fun makeJsonRequest(url: String, webView: WebView, textView: TextView) {
         val stringRequest = StringRequest(Request.Method.GET, url,
             { response ->
-                // Handle the response on the main/UI thread if needed
-
-                //val title = response.getJSONObject("title")
-
-                //val content = jsonObject.getJSONObject("content")
-                //val rendered = content.getString("rendered")
+                val posts = parseResponse(response)
                 requireActivity().runOnUiThread {
-                    // Process jsonResponse
-                    Toast.makeText(requireContext(), "In function", Toast.LENGTH_LONG).show()
-                    //view?.findViewById<WebView>(R.id.webViewHome)
-                        //?.loadData(rendered, "text/html", null)
-                    textView.text = response
+                    // Process jsonResponse on Main UI thread
+                    webView.loadData(posts[0].content, "text/html", null)
+                    textView.text = posts[0].title
                 }
             },
             { error ->
-                // Handle error on the main/UI thread if needed
                 requireActivity().runOnUiThread {
                     // Handle error
-                    error.printStackTrace()
-                    Toast.makeText(requireContext(), "Error fetching JSON.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), "Error fetching JSON: ${error.message}", Toast.LENGTH_LONG).show()
                 }
             })
 
         // Add the request to the RequestQueue.
         requestQueue.add(stringRequest)
     }
+
+    private fun parseResponse(response: String): List<Post> {
+        val posts = mutableListOf<Post>()
+        val jsonArray = JSONArray(response)
+        for (i in 0 until jsonArray.length()) {
+            val jsonObject = jsonArray.getJSONObject(i)
+            val id = jsonObject.getInt("id")
+            val title = jsonObject.getJSONObject("title").getString("rendered")
+            val content = jsonObject.getJSONObject("content").getString("rendered")
+            posts.add(Post(id, title, content))
+        }
+        return posts
+    }
 }
 
-
+/**
+ * A simple [Fragment] subclass.
+ * Use the [NotificationsFragment.newInstance] factory method to
+ * create an instance of this fragment.
+ */
 class NotificationsFragment : Fragment() {
+    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
@@ -109,7 +119,15 @@ class NotificationsFragment : Fragment() {
     }
 
     companion object {
-
+        /**
+         * Use this factory method to create a new instance of
+         * this fragment using the provided parameters.
+         *
+         * @param param1 Parameter 1.
+         * @param param2 Parameter 2.
+         * @return A new instance of fragment NotificationsFragment.
+         */
+        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             NotificationsFragment().apply {
