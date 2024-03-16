@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/font"
+    android:layout_width="match_parent"
+    android:layout_height="300px"
+    android:layout_marginTop="40px"
+    android:paddingLeft="20px"
+    android:paddingTop="40px"
+    android:paddingBottom="40px">
+
+    <ImageView
+        android:id="@+id/categoryImageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="4"
+        android:padding="20px"
+        android:src="@drawable/news" />
+
+    <Button
+        android:id="@+id/categoryButton"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="#C8000000"
+        android:text="Category"
+        android:textAlignment="viewStart"
+        android:textColorHint="#64FFFFFF"
+        android:textSize="24sp" />
+</LinearLayout>
