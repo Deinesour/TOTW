@@ -28,7 +28,8 @@ data class Post(
 class homeFragment : Fragment() {
     private lateinit var requestQueue: RequestQueue
     private lateinit var webView: WebView
-    private lateinit var textView: TextView
+    private lateinit var textViewTitle: TextView
+    private lateinit var textViewHeader: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,13 +51,18 @@ class homeFragment : Fragment() {
         val url = "https://topotheworld.org/wp-json/wp/v2/posts?fields=id,title,content"
 
         webView = view.findViewById(R.id.webViewHome)
-        textView = view.findViewById(R.id.textViewHomeTitle)
+        textViewTitle = view.findViewById(R.id.textViewHomeTitle)
+        textViewHeader = view.findViewById(R.id.textViewHeader)
         requestQueue = Volley.newRequestQueue(requireActivity().applicationContext)
 
+        if (arguments?.getString("category") != null) {
+            textViewHeader.text = arguments?.getString("category")
+        }
+
         // make a JSON request on a background thread - required by Android
-        textView.text = "Loading Content..."
+        textViewTitle.text = "Loading Content..."
         Thread {
-            makeJsonRequest(url, webView, textView)
+            makeJsonRequest(url, webView, textViewTitle)
         }.start()
 
     }

@@ -9,13 +9,31 @@
     tools:context=".homeFragment">
 
     <TextView
-        android:id="@+id/textViewHomeTitle"
+        android:id="@+id/textViewHeader"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="8"
-        android:background="#5EE81D1D"
+        android:layout_height="wrap_content"
+        android:background="#8C3C3C"
         android:fontFamily="sans-serif-black"
         android:gravity="center"
+        android:paddingTop="20px"
+        android:paddingBottom="20px"
+        android:text="Home"
+        android:textColor="#FFFFFF"
+        android:textSize="34sp" />
+
+    <TextView
+        android:id="@+id/textViewHomeTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#C8000000"
+        android:fontFamily="sans-serif-black"
+        android:paddingLeft="90px"
+        android:paddingTop="20px"
+        android:paddingRight="50px"
+        android:paddingBottom="20px"
+        android:text="Title"
+        android:textAlignment="viewStart"
+        android:textColor="#D7FFFFFF"
         android:textSize="20sp" />
 
     <WebView
