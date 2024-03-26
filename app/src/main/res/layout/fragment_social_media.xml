@@ -1,14 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".SocialMediaFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ImageView
+        android:id="@+id/imageViewLogo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight=".5"
+        android:src="@drawable/logo"
+        app:srcCompat="@drawable/logo"
+        tools:srcCompat="@drawable/logo" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="hello social media fragment" />
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="11dp"
+            android:layout_weight=".25"
+            android:gravity="center"
+            android:text="Follow Us On Social Media!"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/instaTextview"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight=".25"
+            android:clickable="true"
+            android:contextClickable="true"
+            android:drawableLeft="@drawable/instagram"
+            android:gravity="center"
+            android:onClick="openInstagram"
+            android:text="Instagram"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textSize="26sp"
+            android:typeface="normal" />
+
+        <TextView
+            android:id="@+id/xTextview"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight=".25"
+            android:clickable="true"
+            android:contextClickable="true"
+            android:drawableLeft="@drawable/xicon"
+            android:gravity="center"
+            android:onClick="openX"
+            android:text="X"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textSize="26sp" />
+
+        <TextView
+            android:id="@+id/tiktokTextView"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="35dp"
+            android:layout_weight=".25"
+            android:clickable="true"
+            android:contextClickable="true"
+            android:drawableLeft="@drawable/tiktok"
+            android:gravity="center"
+            android:onClick="openTikTok"
+            android:text="TikTok"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textSize="26sp" />
+
+    </LinearLayout>
+
+</LinearLayout>
