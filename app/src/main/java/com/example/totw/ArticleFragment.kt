@@ -56,8 +56,8 @@ class ArticleFragment : Fragment() {
         val webView = view.findViewById<WebView>(webView)
 
         textViewTitle.text = title
-        webView.settings.javaScriptEnabled = true
-        webView.isVerticalScrollBarEnabled = true
+        //webView.settings.javaScriptEnabled = true
+        //webView.isVerticalScrollBarEnabled = true
         //webView.isHorizontalScrollBarEnabled = false
         //webView.settings.loadWithOverviewMode = true
         webView.loadData(content, "text/html", null)

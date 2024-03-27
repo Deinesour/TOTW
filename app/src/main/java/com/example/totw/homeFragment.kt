@@ -15,6 +15,7 @@ import com.android.volley.RequestQueue
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONArray
+import org.jsoup.Jsoup
 import kotlin.reflect.KFunction3
 
 /**
@@ -77,7 +78,7 @@ class homeFragment : Fragment(), OnArticleSelectedListener {
 
         // URL to fetch JSON from
         // 8 = environ, 7 = Opinion, 6 = Sports, 5 = ???
-        var url = "https://topotheworld.org/wp-json/wp/v2/posts?_embed"
+        var url = "https://topotheworld.org/wp-json/wp/v2/posts?_embed&per_page=30"
 
         textViewHeader = view.findViewById(R.id.textViewHeader)
         recyclerView = view.findViewById(R.id.recyclerViewArticles)
@@ -137,7 +138,20 @@ class homeFragment : Fragment(), OnArticleSelectedListener {
             val content = jsonObject.getJSONObject("content").getString("rendered")
             val author = jsonObject.getInt("author")
             val date = jsonObject.getString("date")
-            posts.add(Post(id, title, author, date, content))
+
+            val doc = Jsoup.parse(content)
+            doc.select("img").forEach { // Checking all images
+                it.attr("height", "auto")
+                it.attr("width", "100%") // If not width is set
+            }
+            doc.select("p").forEach {
+                it.attr("padding", "0px")
+            }
+            doc.select("iframe").forEach { // Checking all videos
+                it.attr("width", "100%") // If not width is set
+            }
+
+            posts.add(Post(id, title, author, date, doc.toString()))
         }
         return posts
     }
