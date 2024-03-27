@@ -76,14 +76,22 @@ class homeFragment : Fragment(), OnArticleSelectedListener {
         super.onViewCreated(view, savedInstanceState)
 
         // URL to fetch JSON from
-        val url = "https://topotheworld.org/wp-json/wp/v2/posts"
+        // 8 = environ, 7 = Opinion, 6 = Sports, 5 = ???
+        var url = "https://topotheworld.org/wp-json/wp/v2/posts?_embed"
 
         textViewHeader = view.findViewById(R.id.textViewHeader)
         recyclerView = view.findViewById(R.id.recyclerViewArticles)
         requestQueue = Volley.newRequestQueue(requireActivity().applicationContext)
 
         if (arguments?.getString("category") != null) {
-            textViewHeader.text = arguments?.getString("category")
+            val category = arguments?.getString("category")
+            textViewHeader.text = category
+            when (category) {
+                "Sports" -> url += "&categories=6"
+                "Opinion" -> url += "&categories=7"
+                "Environment" -> url += "&categories=8"
+            }
+
         }
 
         // make a JSON request on a background thread - required by Android
