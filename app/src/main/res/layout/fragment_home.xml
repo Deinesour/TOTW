@@ -21,25 +21,9 @@
         android:textColor="#FFFFFF"
         android:textSize="34sp" />
 
-    <TextView
-        android:id="@+id/textViewHomeTitle"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewArticles"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#C8000000"
-        android:fontFamily="sans-serif-black"
-        android:paddingLeft="90px"
-        android:paddingTop="20px"
-        android:paddingRight="50px"
-        android:paddingBottom="20px"
-        android:text="Title"
-        android:textAlignment="viewStart"
-        android:textColor="#D7FFFFFF"
-        android:textSize="20sp" />
-
-    <WebView
-        android:id="@+id/webViewHome"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1" />
+        android:layout_height="match_parent" />
 
 </LinearLayout>
