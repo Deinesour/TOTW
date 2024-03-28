@@ -1,13 +1,10 @@
 package com.example.totw
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
@@ -21,13 +18,14 @@ class MainActivity : AppCompatActivity() {
         val newsFrag = newsCategoriesFragment()
         val homeFrag = homeFragment()
         val eventsFrag = eventsFragment()
+        val events2Frag = events2Fragment()
 
         setCurrentFragment(homeFrag)
         bottomNavigationView.setOnNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.home->setCurrentFragment(homeFrag)
                 R.id.news->setCurrentFragment(newsFrag)
-                R.id.events->setCurrentFragment(eventsFrag)
+                R.id.events->setCurrentFragment(events2Frag)
             }
             true
         }
