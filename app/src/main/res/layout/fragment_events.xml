@@ -1,24 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".eventsFragment">
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+tools:context=".eventsFragment">
 
     <TextView
         android:id="@+id/calendarTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#8C3C3C"
+        android:background="#C62828"
+        android:backgroundTint="#C62828"
         android:fontFamily="sans-serif-black"
         android:gravity="center"
         android:lineSpacingExtra="10sp"
-        android:paddingTop="20px"
-        android:paddingBottom="20px"
-        android:text="Calendar"
+        android:text="Events"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="#FFFFFF" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <CalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:dateTextAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:focusedMonthDateColor="#FF0000"
+                android:datePickerDialogTheme="@style/CustomDatePickerDialogTheme"
+                android:selectedWeekBackgroundColor="#C62828" />
+
+            <TextView
+                android:id="@+id/selectedDateText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="#EEEEEE"
+                android:fontFamily="sans-serif-medium"
+                android:paddingStart="20dp"
+                android:paddingTop="12dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="12dp"
+                android:textAlignment="viewStart"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:typeface="normal"
+                tools:text="7 Jan, 2019" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/selectedDates"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="CustomDatePickerDialogTheme" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="materialCalendarStyle">@style/CustomMaterialCalendar</item>
+    </style>
+
+    <style name="CustomMaterialCalendar" parent="Widget.MaterialComponents.MaterialCalendar">
+        <item name="materialCalendarStyle">@style/Widget.MaterialComponents.MaterialCalendar.Fullscreen</item>
+        <item name="materialCalendarDay">@style/CustomMaterialCalendarDay</item>
+    </style>
+
+    <style name="CustomMaterialCalendarDay" parent="Widget.MaterialComponents.MaterialCalendar.Day">
+        <item name="android:backgroundTint">@color/red</item>
+    </style>
+</resources>
