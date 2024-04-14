@@ -23,20 +23,21 @@
             android:background="#C8000000"
             android:fontFamily="sans-serif-condensed-medium"
             android:gravity="top"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
             android:text="Title"
             android:textAlignment="viewStart"
             android:textSize="14sp"
             app:cornerRadius="10px" />
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/itemImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="200"
+            android:src="@drawable/logo" />
 
-    <TextView
-        android:id="@+id/textViewDate"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_weight=".2"
-        android:fontFamily="sans-serif-black"
-        android:gravity="center"
-        android:text="Date" />
+    </LinearLayout>
 
 </LinearLayout>
