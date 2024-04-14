@@ -1,15 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".events2Fragment">
 
     <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:id="@+id/textViewHeader2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#8C3C3C"
+        android:fontFamily="sans-serif-black"
+        android:gravity="bottom|center"
+        android:paddingTop="20px"
+        android:text="Events"
+        android:textColor="#FFFFFF"
+        android:textSize="34sp" />
+
+    <TextView
+        android:id="@+id/textviewLoading"
+        android:layout_width="match_parent"
+        android:layout_height="75px"
+        android:background="#8C3C3C"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center|top"
+        android:text="Loading..."
+        android:textSize="16sp" />
 
     <WebView
         android:id="@+id/eventsWebView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-</FrameLayout>
+</LinearLayout>
