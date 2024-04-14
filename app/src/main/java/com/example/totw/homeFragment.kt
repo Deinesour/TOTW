@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -14,20 +15,18 @@ import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.squareup.picasso.Picasso
 import org.json.JSONArray
-import kotlin.reflect.KFunction3
+import org.jsoup.Jsoup
 
-/**
- * A simple [Fragment] subclass.
- * Use the [homeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 data class Post(
     val id: Int,
     val title: String,
     val author: Int,
     val date: String,
-    val content: String
+    val content: String,
+    val mainImage: String,
+    val doc: String
 )
 interface OnArticleSelectedListener {
     fun onArticleSelected(id: Int, title: String, content: String)
@@ -35,7 +34,7 @@ interface OnArticleSelectedListener {
 open class ArticleAdapter(val posts: MutableList<Post>, val listener: OnArticleSelectedListener) : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() {
     class ArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val buttonTitle = itemView.findViewById<Button>(R.id.buttonTitle)
-        val textViewDate = itemView.findViewById<TextView>(R.id.textViewDate)
+        val itemImageView = itemView.findViewById<ImageView>(R.id.itemImageView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
@@ -44,7 +43,7 @@ open class ArticleAdapter(val posts: MutableList<Post>, val listener: OnArticleS
     }
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
-        holder.textViewDate.text = posts[position].date
+        Picasso.get().load(posts[position].mainImage).error(R.drawable.logo).resize(1000,700).centerInside().into(holder.itemImageView)
         holder.buttonTitle.text = posts[position].title
         holder.buttonTitle.setOnClickListener {
             listener.onArticleSelected(posts[position].id, posts[position].title, posts[position].content)
@@ -77,7 +76,7 @@ class homeFragment : Fragment(), OnArticleSelectedListener {
 
         // URL to fetch JSON from
         // 8 = environ, 7 = Opinion, 6 = Sports, 5 = ???
-        var url = "https://topotheworld.org/wp-json/wp/v2/posts?_embed"
+        var url = "https://topotheworld.org/wp-json/wp/v2/posts?_embed&per_page=30"
 
         textViewHeader = view.findViewById(R.id.textViewHeader)
         recyclerView = view.findViewById(R.id.recyclerViewArticles)
@@ -137,7 +136,33 @@ class homeFragment : Fragment(), OnArticleSelectedListener {
             val content = jsonObject.getJSONObject("content").getString("rendered")
             val author = jsonObject.getInt("author")
             val date = jsonObject.getString("date")
-            posts.add(Post(id, title, author, date, content))
+
+
+            val doc = Jsoup.parse(content)
+            doc.select("img").forEach { // Checking all images
+                it.attr("height", "auto")
+                it.attr("width", "100%") // If not width is set
+            }
+            doc.select("p").forEach {
+                it.attr("padding", "0px")
+            }
+            doc.select("iframe").forEach { // Checking all videos
+                it.attr("width", "100%") // If not width is set
+            }
+            val regex = Regex("data-src=\"([^\"]+)\"")
+            val matchResult = regex.find(content)
+
+            val url = matchResult?.groups?.get(1)?.value
+            if (url != null) {
+                val mainImage = url
+                posts.add(Post(id, title, author, date, content,mainImage,doc.toString()))
+            } else {
+                val mainImage = "https://topotheworld.org/wp-content/uploads/2023/10/4ifi6ybkbvn01-400x250.jpg"
+                posts.add(Post(id, title, author, date, content,mainImage,doc.toString()))
+            }
+
+
+
         }
         return posts
     }
@@ -155,46 +180,5 @@ class homeFragment : Fragment(), OnArticleSelectedListener {
             .replace(R.id.flFragment, articleFrag)
             .addToBackStack(null)
             .commit()
-    }
-}
-
-/**
- * A simple [Fragment] subclass.
- * Use the [NotificationsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class NotificationsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notifications, container, false)
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment NotificationsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            NotificationsFragment().apply {
-
-            }
     }
 }

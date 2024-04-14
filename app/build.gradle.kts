@@ -73,4 +73,5 @@ dependencies {
     implementation("com.android.volley:volley:1.2.1")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
     implementation("org.jsoup:jsoup:1.11.1")
+    implementation ("com.squareup.picasso:picasso:2.8")
 }
