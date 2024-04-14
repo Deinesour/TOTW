@@ -30,10 +30,10 @@ data class Category(val name: String, val imageSrc: Int)
 val categories = listOf(
     Category("All News", R.drawable.news),
     Category("Sports", R.drawable.sports),
-    Category("Art", R.drawable.art),
     Category("Environment", R.drawable.environment),
     Category("Opinion", R.drawable.opinion),
-    Category("Tips & Recipes", R.drawable.recipes)
+    //Category("Art", R.drawable.art),
+    //Category("Tips & Recipes", R.drawable.recipes)
 )
 open class CategoryAdapter(val categories: List<Category>, val listener: OnCategorySelectedListener) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
     class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

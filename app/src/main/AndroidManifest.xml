@@ -13,18 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TOTW"
         tools:targetApi="31">
-        <activity
-            android:name=".socialMediaActivity"
-            android:exported="false" />
-        <activity
-            android:name=".newsletterActivity"
-            android:exported="false" />
-        <activity
-            android:name=".notificationsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".photoGalleryActivity"
-            android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
