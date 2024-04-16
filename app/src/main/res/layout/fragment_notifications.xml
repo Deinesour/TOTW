@@ -1,14 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="75dp"
+    android:orientation="vertical"
     tools:context=".NotificationsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="hello notification fragment" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/notificationsTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#8C3C3C"
+        android:backgroundTint="#8C3C3C"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:lineSpacingExtra="10sp"
+        android:paddingTop="20px"
+        android:paddingBottom="20px"
+        android:text="Notifications"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="#FFFFFF" />
+
+    <Switch
+        android:id="@+id/enableSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight=".5"
+        android:checked="false"
+        android:fontFamily="sans-serif-medium"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:text="Enable Notifications"
+        android:textColor="#070707"
+        android:textColorHighlight="#C62828"
+        android:textColorLink="#FF0000"
+        android:textCursorDrawable="@color/red"
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/prefTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight=".25"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:text="News Preferences:"
+        android:textColor="#000000"
+        android:textSize="20sp" />
+
+    <Switch
+        android:id="@+id/generalSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight=".25"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center|right"
+        android:paddingLeft="80dp"
+        android:paddingRight="80dp"
+        android:text="General"
+        android:textAlignment="textStart"
+        android:textSize="20sp" />
+
+    <Switch
+        android:id="@+id/artsSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight=".25"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center|right"
+        android:paddingLeft="80dp"
+        android:paddingRight="80dp"
+        android:text="Arts"
+        android:textAlignment="textStart"
+        android:textSize="20sp" />
+
+    <Switch
+        android:id="@+id/environSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight=".25"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center|right"
+        android:paddingLeft="80dp"
+        android:paddingRight="80dp"
+        android:text="Environment"
+        android:textAlignment="textStart"
+        android:textSize="20sp" />
+
+    <Switch
+        android:id="@+id/sportsSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight=".25"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center|right"
+        android:paddingLeft="80dp"
+        android:paddingRight="80dp"
+        android:text="Sports"
+        android:textAlignment="textStart"
+        android:textSize="20sp" />
+
+</LinearLayout>

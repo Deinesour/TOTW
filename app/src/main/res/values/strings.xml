@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Top O\' The World</string>
-    <string name="photo_instructions">Your photo will be sent in an email to TOP. Once you pick a photo, choose your email app and hit send!</string>
-    <string name="photo_gallery">Submit a photo to be reviewed by TOP for a chance to be featured!</string>
+    <string name="photo_instructions">Your photo will be sent in an email to TOTW. Once you pick a photo, choose your email app and hit send!</string>
+    <string name="photo_gallery">Submit a photo to be reviewed by TOTW for a chance to be featured!</string>
 
 </resources>
