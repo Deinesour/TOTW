@@ -63,10 +63,12 @@ class ArticleFragment : Fragment() {
         val webView = view.findViewById<WebView>(webView)
 
         textViewTitle.text = title
-        // IMAGES DON'T DISPLAY WITH THIS ENABLED
+        // IMAGES DON'T DISPLAY WITH JS ENABLED
         //webView.settings.javaScriptEnabled = true
         webView.isVerticalScrollBarEnabled = true
         webView.isHorizontalScrollBarEnabled = false
+        webView.settings.allowContentAccess = true
+        webView.settings.domStorageEnabled = true
         //webView.settings.loadWithOverviewMode = true
         webView.loadData(content, "text/html", null)
 

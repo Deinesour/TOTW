@@ -134,18 +134,28 @@ class homeFragment : Fragment(), OnArticleSelectedListener {
         for (i in 0 until jsonArray.length()) {
             val jsonObject = jsonArray.getJSONObject(i)
             val id = jsonObject.getInt("id")
-            val title = jsonObject.getJSONObject("title").getString("rendered")
+            var title = jsonObject.getJSONObject("title").getString("rendered")
+            title = title.replace("&#8217;", "'")
             val content = jsonObject.getJSONObject("content").getString("rendered")
             val author = jsonObject.getInt("author")
             val date = jsonObject.getString("date")
 
 
             val doc = Jsoup.parse(content)
-            doc.select("img").forEach { // Checking all images
-                it.attr("height", "auto")
-                it.attr("width", "100%") // If not width is set
+            doc.select("html").forEach {
+                it.attr("style", "@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap'); font-family: \"Noto Sans\", sans-serif; font-weight: 500; font-style: normal;")
             }
-
+            doc.select("figure").forEach {
+                it.attr("style", "width:96vw; height:fit-content; padding:0; margin:0; object-fit: cover; overflow: hidden;")
+            }
+            doc.select("img").forEach { // Checking all images
+                it.attr("height", "fit-content")
+                it.attr("width", "100%") // If not width is set
+                it.attr("style", "vertical-align: center;padding-bottom: 0; padding-right: 10px; justify-content: center; display: block;margin-top: -200px;")
+            }
+            doc.select("p").forEach {
+                it.attr("style", "line-height: 30px; font-size: 14pt; font-style: normal;")
+            }
             doc.select("iframe").forEach { // Checking all videos
                 it.attr("width", "100%") // If not width is set
             }
