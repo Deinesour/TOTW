@@ -151,7 +151,7 @@ class homeFragment : Fragment(), OnArticleSelectedListener {
             doc.select("img").forEach { // Checking all images
                 it.attr("height", "fit-content")
                 it.attr("width", "100%") // If not width is set
-                it.attr("style", "vertical-align: center;padding-bottom: 0; padding-right: 10px; justify-content: center; display: block;margin-top: -200px;")
+                it.attr("style", "vertical-align: center;padding-bottom: 0; padding-right: 10px; justify-content: center; display: block;margin-top: -175px;")
             }
             doc.select("p").forEach {
                 it.attr("style", "line-height: 30px; font-size: 14pt; font-style: normal;")

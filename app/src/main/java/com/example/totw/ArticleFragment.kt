@@ -52,7 +52,8 @@ class ArticleFragment : Fragment() {
         webView.settings.allowContentAccess = true
         webView.settings.domStorageEnabled = true
         //webView.settings.loadWithOverviewMode = true
-        webView.loadData(content, "text/html", null)
+        //webView.settings.builtInZoomControls = true
+        webView.loadDataWithBaseURL(null, content, "text/html", "UTF-8", null)
 
         webView.setOnTouchListener(object : OnTouchListener {
             var m_downX = 0f
@@ -79,7 +80,7 @@ class ArticleFragment : Fragment() {
 
         webView.webViewClient = object : WebViewClient() {
             override fun onPageFinished(view: WebView?, url: String?) {
-                injectCSS(webView)
+                //injectCSS(webView)
                 super.onPageFinished(view, url)
             }
         }
