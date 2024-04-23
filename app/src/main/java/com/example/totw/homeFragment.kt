@@ -9,6 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
@@ -58,6 +60,11 @@ class homeFragment : Fragment(), OnArticleSelectedListener {
     private lateinit var textViewHeader: TextView
     private lateinit var recyclerView: RecyclerView
     private lateinit var textViewLoading: TextView
+    private lateinit var sharedViewModel: SharedViewModel
+    private var isGeneral =  false
+    var isOpinion = false
+    var isSports = false
+    var isEnviron = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,13 +74,22 @@ class homeFragment : Fragment(), OnArticleSelectedListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        val view = inflater.inflate(R.layout.fragment_home, container, false)
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
 
+        // Observe switch states
+        sharedViewModel.switchStates.observe(viewLifecycleOwner, Observer { switchStates ->
+            val switchStates = sharedViewModel.switchStates.value
+            isGeneral = switchStates?.get("general") ?: false
+            isOpinion = switchStates?.get("opinion") ?: false
+            isSports = switchStates?.get("sports") ?: false
+            isEnviron = switchStates?.get("environment") ?: false
+        })
         // URL to fetch JSON from
         // 8 = environ, 7 = Opinion, 6 = Sports, 5 = ???
         var url = "https://topotheworld.org/wp-json/wp/v2/posts?_embed&per_page=75"
@@ -82,7 +98,9 @@ class homeFragment : Fragment(), OnArticleSelectedListener {
         recyclerView = view.findViewById(R.id.recyclerViewArticles)
         requestQueue = Volley.newRequestQueue(requireActivity().applicationContext)
         textViewLoading = view.findViewById(R.id.TextviewLoading)
-
+        if (isOpinion){
+            url += "&categories=7"
+        }
         if (arguments?.getString("category") != null) {
             val category = arguments?.getString("category")
             textViewHeader.text = category

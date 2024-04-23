@@ -22,9 +22,8 @@
     <TextView
         android:id="@+id/textView4"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_weight=".002"
         android:fontFamily="sans-serif-black"
         android:gravity="center"
         android:paddingLeft="5dp"
@@ -36,12 +35,11 @@
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/imageViewPager"
-        android:layout_width="wrap_content"
-        android:layout_height="631dp"
+        android:layout_width="match_parent"
+        android:layout_height="380dp"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
-        android:layout_margin="10dp"
-        android:layout_weight=".5" />
+        android:layout_margin="10dp" />
 
     <TextView
         android:id="@+id/textViewInfo"
@@ -54,8 +52,8 @@
     <Button
         android:id="@+id/uploadButton"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1.6"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:text="Submit Photo" />
 
 </LinearLayout>

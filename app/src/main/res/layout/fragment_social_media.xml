@@ -11,10 +11,10 @@
         android:id="@+id/imageViewLogo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight=".5"
-        android:src="@drawable/logo"
-        app:srcCompat="@drawable/logo"
-        tools:srcCompat="@drawable/logo" />
+        android:layout_weight="3"
+        android:src="@drawable/logo_new"
+        app:srcCompat="@drawable/logo_new"
+        tools:srcCompat="@drawable/logo_new" />
 
     <LinearLayout
         android:layout_width="match_parent"

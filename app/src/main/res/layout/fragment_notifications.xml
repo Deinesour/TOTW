@@ -65,7 +65,7 @@
         android:textSize="20sp" />
 
     <Switch
-        android:id="@+id/artsSwitch"
+        android:id="@+id/opinionSwitch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight=".25"
@@ -73,7 +73,7 @@
         android:gravity="center|right"
         android:paddingLeft="80dp"
         android:paddingRight="80dp"
-        android:text="Arts"
+        android:text="Opinion"
         android:textAlignment="textStart"
         android:textSize="20sp" />
 
