@@ -29,6 +29,7 @@ class ArticleFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_article, container, false)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         var id = 0
@@ -77,31 +78,5 @@ class ArticleFragment : Fragment() {
                 return false
             }
         })
-
-        webView.webViewClient = object : WebViewClient() {
-            override fun onPageFinished(view: WebView?, url: String?) {
-                //injectCSS(webView)
-                super.onPageFinished(view, url)
-            }
-        }
-    }
-
-    private fun injectCSS(webView: WebView) {
-        try {
-            val inputStream: InputStream = requireContext().assets.open("style.css")
-            val buffer = ByteArray(inputStream.available())
-            inputStream.read(buffer)
-            inputStream.close()
-            val encoded: String = Base64.encodeToString(buffer, Base64.NO_WRAP)
-            webView.loadUrl("javascript:(function() {" +
-                    "var parent = document.getElementsByTagName('head').item(0);" +
-                    "var style = document.createElement('style');" +
-                    "style.type = 'text/css';" + // Tell the browser to BASE64-decode the string into your script !!!
-                    "style.innerHTML = window.atob('" + encoded + "');" +
-                    "parent.appendChild(style)" +
-                    "})()")
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
     }
 }
