@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
         val newsFrag = newsCategoriesFragment()
         val homeFrag = homeFragment()
-        val eventsFrag = eventsFragment()
+        //val eventsFrag = eventsFragment()
         val events2Frag = events2Fragment()
 
         setCurrentFragment(homeFrag)
@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
         val notifFrag = NotificationsFragment()
         val newsletterFrag = NewsletterFragment()
         val photoGalleryFrag = PhotoGalleryFragment()
+        val staffFrag = StaffFragment()
 
         return when (item.itemId) {
             R.id.about -> {
@@ -63,6 +64,9 @@ class MainActivity : AppCompatActivity() {
                 true
             }R.id.photoGallery -> {
                 setCurrentFragment(photoGalleryFrag)
+                true
+            }R.id.staff -> {
+                setCurrentFragment(staffFrag)
                 true
             }
             else -> super.onOptionsItemSelected(item)
