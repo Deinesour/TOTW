@@ -1,14 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".AboutFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/textViewHeader3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#8C3C3C"
+        android:fontFamily="sans-serif-black"
+        android:gravity="bottom|center"
+        android:paddingTop="20px"
+        android:paddingBottom="20px"
+        android:text="About &amp; Contact"
+        android:textColor="#FFFFFF"
+        android:textSize="34sp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#648C3C3C"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:paddingTop="20px"
+        android:paddingBottom="20px"
+        android:text="Welcome to Top O' The World!"
+        android:textColor="#C8000000"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:paddingLeft="75px"
+        android:paddingTop="30px"
+        android:paddingRight="75px"
+        android:paddingBottom="30px"
+        android:text="We’re the independent student newspaper for Western Colorado University in Gunnison, Colorado."
+        android:textColor="#AF000000" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:paddingLeft="75px"
+        android:paddingRight="75px"
+        android:paddingBottom="30px"
+        android:text="Top O’ The World serves the students of Western and the residents of Gunnison."
+        android:textColor="#AF000000" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:paddingLeft="75px"
+        android:paddingRight="75px"
+        android:paddingBottom="30px"
+        android:text="'The Top' was founded in 1921."
+        android:textColor="#AF000000"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center|left"
+        android:paddingLeft="75px"
+        android:paddingTop="50px"
+        android:paddingRight="75px"
+        android:paddingBottom="30px"
+        android:text="Contact Top:"
+        android:textColor="#AF000000"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="150px"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-black"
+                android:gravity="left"
+                android:text="Email" />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20px"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-black"
+                android:gravity="left"
+                android:text="Address" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="150px"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-black"
+                android:gravity="left"
+                android:paddingLeft="0px"
+                android:paddingTop="30px"
+                android:text="top@western.edu"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20px"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-black"
+                android:gravity="left"
+                android:paddingTop="30px"
+                android:text="1 Western Way \nRoom 233\nGunnison, CO 81230" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="100px"
+        android:paddingTop="75px"
+        android:text="App Developers:\n\t\t\t\t\tLelani Deines, Holly Hunter, &amp; Em Moellenberg" />
+
+    <ImageView
+        android:id="@+id/imageView3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="hello about fragment" />
+        android:layout_gravity="bottom"
+        android:foregroundGravity="bottom"
+        app:srcCompat="@drawable/logo_new" />
 
-</FrameLayout>
+</LinearLayout>
