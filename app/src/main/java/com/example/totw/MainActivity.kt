@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         val aboutFrag = AboutFragment()
         val socialFrag = SocialMediaFragment()
         val notifFrag = NotificationsFragment()
-        val newsletterFrag = NewsletterFragment()
+        val newsletterFrag = newsletterFragment()
         val photoGalleryFrag = PhotoGalleryFragment()
         val staffFrag = StaffFragment()
 

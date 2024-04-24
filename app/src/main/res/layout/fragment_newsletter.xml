@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NewsletterFragment">
+    tools:context=".newsletterFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -26,40 +26,19 @@
             android:textSize="34sp" />
 
         <TextView
-            android:id="@+id/textViewFinePrint"
+            android:id="@+id/textviewLoading"
             android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:gravity="center"
-            android:text="Sign up for Top o' the World's digital newsletter! Independent student news at Western Colorado University since 1921.  "
-            android:textSize="24sp" />
+            android:layout_height="75px"
+            android:background="#8C3C3C"
+            android:fontFamily="sans-serif-black"
+            android:gravity="center|top"
+            android:text="Loading..."
+            android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/editTextName"
+        <WebView
+            android:id="@+id/newsletterWebView"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:ems="10"
-            android:hint="Full Name"
-            android:inputType="text" />
-
-        <EditText
-            android:id="@+id/editTextTextEmailAddress"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:ems="10"
-            android:hint="Enter email here"
-            android:inputType="textEmailAddress" />
-
-        <Button
-            android:id="@+id/buttonNewsletterSubmit"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:text="Submit" />
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:src="@drawable/logo_new" />
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 
