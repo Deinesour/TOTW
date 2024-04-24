@@ -26,7 +26,6 @@ data class Post(
     val date: String,
     val content: String,
     val mainImage: String,
-    val doc: String
 )
 interface OnArticleSelectedListener {
     fun onArticleSelected(id: Int, title: String, content: String)
@@ -58,6 +57,7 @@ class homeFragment : Fragment(), OnArticleSelectedListener {
     private lateinit var requestQueue: RequestQueue
     private lateinit var textViewHeader: TextView
     private lateinit var recyclerView: RecyclerView
+    private lateinit var textViewLoading: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,11 +76,12 @@ class homeFragment : Fragment(), OnArticleSelectedListener {
 
         // URL to fetch JSON from
         // 8 = environ, 7 = Opinion, 6 = Sports, 5 = ???
-        var url = "https://topotheworld.org/wp-json/wp/v2/posts?_embed&per_page=30"
+        var url = "https://topotheworld.org/wp-json/wp/v2/posts?_embed&per_page=75"
 
         textViewHeader = view.findViewById(R.id.textViewHeader)
         recyclerView = view.findViewById(R.id.recyclerViewArticles)
         requestQueue = Volley.newRequestQueue(requireActivity().applicationContext)
+        textViewLoading = view.findViewById(R.id.TextviewLoading)
 
         if (arguments?.getString("category") != null) {
             val category = arguments?.getString("category")
@@ -95,7 +96,7 @@ class homeFragment : Fragment(), OnArticleSelectedListener {
 
         // make a JSON request on a background thread - required by Android
         //textViewTitle.text = "Loading Content..."
-
+        textViewLoading.text = "Loading..."
         recyclerView.layoutManager = LinearLayoutManager(requireActivity().applicationContext)
         Thread {
             val posts = makeJsonRequest(url, recyclerView)
@@ -112,6 +113,7 @@ class homeFragment : Fragment(), OnArticleSelectedListener {
                     //webView.loadData(posts[0].content, "text/html", null)
                     val adapter = ArticleAdapter(posts, this)
                     recyclerView.adapter = adapter
+                    textViewLoading.text = ""
                 }
             },
             { error ->
@@ -132,19 +134,27 @@ class homeFragment : Fragment(), OnArticleSelectedListener {
         for (i in 0 until jsonArray.length()) {
             val jsonObject = jsonArray.getJSONObject(i)
             val id = jsonObject.getInt("id")
-            val title = jsonObject.getJSONObject("title").getString("rendered")
+            var title = jsonObject.getJSONObject("title").getString("rendered")
+            title = title.replace("&#8217;", "'")
             val content = jsonObject.getJSONObject("content").getString("rendered")
             val author = jsonObject.getInt("author")
             val date = jsonObject.getString("date")
 
 
             val doc = Jsoup.parse(content)
+            doc.select("html").forEach {
+                it.attr("style", "@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap'); font-family: \"Noto Sans\", sans-serif; font-weight: 500; font-style: normal;")
+            }
+            doc.select("figure").forEach {
+                it.attr("style", "width:96vw; height:fit-content; padding:0; margin:0; object-fit: cover; overflow: hidden;")
+            }
             doc.select("img").forEach { // Checking all images
-                it.attr("height", "auto")
+                it.attr("height", "fit-content")
                 it.attr("width", "100%") // If not width is set
+                it.attr("style", "vertical-align: center;padding-bottom: 0; padding-right: 10px; justify-content: center; display: block;margin-top: -175px;")
             }
             doc.select("p").forEach {
-                it.attr("padding", "0px")
+                it.attr("style", "line-height: 30px; font-size: 14pt; font-style: normal;")
             }
             doc.select("iframe").forEach { // Checking all videos
                 it.attr("width", "100%") // If not width is set
@@ -155,14 +165,11 @@ class homeFragment : Fragment(), OnArticleSelectedListener {
             val url = matchResult?.groups?.get(1)?.value
             if (url != null) {
                 val mainImage = url
-                posts.add(Post(id, title, author, date, content,mainImage,doc.toString()))
+                posts.add(Post(id, title, author, date, "<head></head>$doc" /*doc.toString()*/,mainImage))
             } else {
                 val mainImage = "https://topotheworld.org/wp-content/uploads/2023/10/4ifi6ybkbvn01-400x250.jpg"
-                posts.add(Post(id, title, author, date, content,mainImage,doc.toString()))
+                posts.add(Post(id, title, author, date, "<head></head>$doc",mainImage))
             }
-
-
-
         }
         return posts
     }

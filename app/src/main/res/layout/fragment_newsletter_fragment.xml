@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".events2Fragment">
+    tools:context=".newsletterFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -16,7 +16,7 @@
         android:fontFamily="sans-serif-black"
         android:gravity="bottom|center"
         android:paddingTop="20px"
-        android:text="Events"
+        android:text="Sign up for newsletter!"
         android:textColor="#FFFFFF"
         android:textSize="34sp" />
 
@@ -31,7 +31,7 @@
         android:textSize="16sp" />
 
     <WebView
-        android:id="@+id/eventsWebView"
+        android:id="@+id/newsletterWebView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
