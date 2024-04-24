@@ -36,6 +36,7 @@ class StaffFragment : Fragment() {
         webView.settings.domStorageEnabled = true
         webView.settings.javaScriptEnabled = true
 
+        // for manual JSON request to Staff page.
         val url = "https://topotheworld.org/wp-json/wp/v2/pages?_embed&search='Staff'&slug='Staff'"
 //        Thread {
 //            makeJsonRequest(url, webView)
