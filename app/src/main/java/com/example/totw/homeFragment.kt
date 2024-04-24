@@ -113,7 +113,6 @@ class homeFragment : Fragment(), OnArticleSelectedListener {
         }
 
         // make a JSON request on a background thread - required by Android
-        //textViewTitle.text = "Loading Content..."
         textViewLoading.text = "Loading..."
         recyclerView.layoutManager = LinearLayoutManager(requireActivity().applicationContext)
         Thread {
