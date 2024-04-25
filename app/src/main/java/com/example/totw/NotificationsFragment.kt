@@ -64,6 +64,7 @@ class NotificationsFragment : Fragment() {
 
         return view
     }
+    @SuppressLint("NewApi")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -84,6 +85,7 @@ class NotificationsFragment : Fragment() {
         }
 
     }
+    @RequiresApi(Build.VERSION_CODES.S)
     fun checkNotificationPermissions(context: Context): Boolean {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val isEnabled = notificationManager.areNotificationsEnabled()
@@ -105,7 +107,15 @@ class NotificationsFragment : Fragment() {
                     requireContext().startActivity(intent)
                     return false
                 }
-            }
+        }
+        val isAlarmEnabled = alarmManager.canScheduleExactAlarms()
+        if (!isAlarmEnabled) {
+            // Open the app notification settings if notifications are not enabled
+            val intent = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
+            intent.putExtra(Settings.EXTRA_APP_PACKAGE, requireContext().packageName)
+            requireContext().startActivity(intent)
+            return false
+        }
         return true
     }
         @RequiresApi(Build.VERSION_CODES.O)
