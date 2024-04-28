@@ -108,12 +108,17 @@ class NotificationsFragment : Fragment() {
                     return false
                 }
         }
+
         val isAlarmEnabled = alarmManager.canScheduleExactAlarms()
-        if (!isAlarmEnabled) {
-            // Open the app notification settings if notifications are not enabled
-            val intent = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
-            intent.putExtra(Settings.EXTRA_APP_PACKAGE, requireContext().packageName)
-            requireContext().startActivity(intent)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!isAlarmEnabled) {
+                // Open the app notification settings if notifications are not enabled
+                val intent = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
+                intent.putExtra(Settings.EXTRA_APP_PACKAGE, requireContext().packageName)
+                requireContext().startActivity(intent)
+                return false
+            }
+        }else{
             return false
         }
         return true
@@ -121,7 +126,7 @@ class NotificationsFragment : Fragment() {
         @RequiresApi(Build.VERSION_CODES.O)
         private fun createNotificationChannel() {
             val name = "General"
-            val descriptionText = "General notifications from TOP."
+            val descriptionText = "Notifications from TOP."
             val importance = NotificationManager.IMPORTANCE_DEFAULT
             val channel = NotificationChannel(channelID, name, importance).apply {
                 description = descriptionText
@@ -135,7 +140,7 @@ class NotificationsFragment : Fragment() {
         val calendar = Calendar.getInstance().apply {
             timeInMillis = System.currentTimeMillis()
             set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY)
-            set(Calendar.HOUR_OF_DAY, 9)
+            set(Calendar.HOUR_OF_DAY,9)
             set(Calendar.MINUTE,0)
             set(Calendar.SECOND, 0)
         }
