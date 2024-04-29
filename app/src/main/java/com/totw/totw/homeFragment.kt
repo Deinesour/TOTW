@@ -31,9 +31,10 @@ data class Post(
     val date: String,
     val content: String,
     val mainImage: String,
+    val link: String
 )
 interface OnArticleSelectedListener {
-    fun onArticleSelected(id: Int, title: String, content: String)
+    fun onArticleSelected(id: Int, title: String, date: String, content: String, link: String)
 }
 open class ArticleAdapter(val posts: MutableList<Post>, val listener: OnArticleSelectedListener) : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() {
     class ArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -47,10 +48,10 @@ open class ArticleAdapter(val posts: MutableList<Post>, val listener: OnArticleS
     }
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
-        Picasso.get().load(posts[position].mainImage).error(R.drawable.logo_new).resize(1000,700).centerInside().into(holder.itemImageView)
+        Picasso.get().load(posts[position].mainImage).error(R.drawable.news).resize(1000, 800).centerInside().into(holder.itemImageView)
         holder.buttonTitle.text = posts[position].title
         holder.buttonTitle.setOnClickListener {
-            listener.onArticleSelected(posts[position].id, posts[position].title, posts[position].content)
+            listener.onArticleSelected(posts[position].id, posts[position].title, posts[position].date, posts[position].content, posts[position].link)
         }
     }
 
@@ -106,7 +107,7 @@ class homeFragment : Fragment(), OnArticleSelectedListener {
         // URL to fetch JSON from
         // Category codes for URL:
         // 8 = Environment, 7 = Opinion, 6 = Sports, 5 = ???
-        var url = "https://topotheworld.org/wp-json/wp/v2/posts?_embed&per_page=75"
+        var url = "https://topotheworld.org/wp-json/wp/v2/posts?_embed&per_page=100"
 
         textViewHeader = view.findViewById(R.id.textViewHeader)
         recyclerView = view.findViewById(R.id.recyclerViewArticles)
@@ -189,6 +190,7 @@ class homeFragment : Fragment(), OnArticleSelectedListener {
             val content = jsonObject.getJSONObject("content").getString("rendered")
             val author = jsonObject.getInt("author")
             val date = jsonObject.getString("date")
+            val link = jsonObject.getString("link")
 
 
             val doc = Jsoup.parse(content)
@@ -215,21 +217,23 @@ class homeFragment : Fragment(), OnArticleSelectedListener {
             val url = matchResult?.groups?.get(1)?.value
             if (url != null) {
                 val mainImage = url
-                posts.add(Post(id, title, author, date, "<head></head>$doc" /*doc.toString()*/,mainImage))
+                posts.add(Post(id, title, author, date, "<head></head>$doc" /*doc.toString()*/,mainImage, link))
             } else {
                 val mainImage = "https://topotheworld.org/wp-content/uploads/2023/10/4ifi6ybkbvn01-400x250.jpg"
-                posts.add(Post(id, title, author, date, "<head></head>$doc",mainImage))
+                posts.add(Post(id, title, author, date, "<head></head>$doc",mainImage, link))
             }
         }
         return posts
     }
 
-    override fun onArticleSelected(id: Int, title: String, content: String) {
+    override fun onArticleSelected(id: Int, title: String, date: String, content: String, link: String) {
         val articleFrag = ArticleFragment()
         val bundle = Bundle().apply {
             putInt("id", id)
             putString("content", content)
             putString("title", title)
+            putString("date", date)
+            putString("link", link)
         }
         //bundle.putString("category", category)
         articleFrag.arguments = bundle

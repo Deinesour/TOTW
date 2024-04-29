@@ -38,41 +38,8 @@ class StaffFragment : Fragment() {
 
         // for manual JSON request to Staff page.
         val url = "https://topotheworld.org/wp-json/wp/v2/pages?_embed&search='Staff'&slug='Staff'"
-//        Thread {
-//            makeJsonRequest(url, webView)
-//        }.start()
+
         webView.loadUrl("https://topotheworld.org/staff/")
         super.onViewCreated(view, savedInstanceState)
-    }
-
-    private fun makeJsonRequest(url: String, webView: WebView) {
-        val requestQueue = Volley.newRequestQueue(requireActivity().applicationContext)
-        var posts = mutableListOf<Post>()
-        val stringRequest = StringRequest(
-            Request.Method.GET, url,
-            { response ->
-                posts = parseResponse(response)
-                webView.loadDataWithBaseURL(null, posts[0].content, "text/html", "UTF-8", null)
-            },
-            { error ->
-                requireActivity().runOnUiThread {
-                    // Handle error
-                    Toast.makeText(requireContext(), "Error fetching JSON: ${error.message}", Toast.LENGTH_LONG).show()
-                }
-            })
-
-        // Add the request to the RequestQueue.
-        requestQueue.add(stringRequest)
-    }
-    private fun parseResponse(response: String?): MutableList<Post> {
-        val posts = mutableListOf<Post>()
-        val jsonArray = JSONArray(response)
-        for (i in 0 until jsonArray.length()) {
-            val jsonObject = jsonArray.getJSONObject(i)
-            val id = jsonObject.getInt("id")
-            val content = jsonObject.getJSONObject("content").getString("rendered")
-            posts.add(Post(id, "", -1, "", content, ""))
-        }
-        return posts
     }
 }
