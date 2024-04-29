@@ -43,14 +43,14 @@
             android:layout_weight=".25"
             android:clickable="true"
             android:contextClickable="true"
-            android:drawableLeft="@drawable/instagram"
             android:gravity="center"
             android:onClick="openInstagram"
             android:text="Instagram"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="26sp"
-            android:typeface="normal" />
+            android:typeface="normal"
+            app:drawableLeftCompat="@drawable/instagram" />
 
         <TextView
             android:id="@+id/xTextview"
@@ -61,13 +61,13 @@
             android:layout_weight=".25"
             android:clickable="true"
             android:contextClickable="true"
-            android:drawableLeft="@drawable/xicon"
             android:gravity="center"
             android:onClick="openX"
             android:text="X"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textSize="26sp" />
+            android:textSize="26sp"
+            app:drawableLeftCompat="@drawable/xicon" />
 
         <TextView
             android:id="@+id/tiktokTextView"
@@ -79,13 +79,13 @@
             android:layout_weight=".25"
             android:clickable="true"
             android:contextClickable="true"
-            android:drawableLeft="@drawable/tiktok"
             android:gravity="center"
             android:onClick="openTikTok"
             android:text="TikTok"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textSize="26sp" />
+            android:textSize="26sp"
+            app:drawableLeftCompat="@drawable/tiktok" />
 
     </LinearLayout>
 

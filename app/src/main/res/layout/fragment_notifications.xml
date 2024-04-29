@@ -57,12 +57,11 @@
         android:layout_height="wrap_content"
         android:layout_weight=".25"
         android:fontFamily="sans-serif-light"
-        android:gravity="center|right"
         android:paddingLeft="80dp"
         android:paddingRight="80dp"
         android:text="General"
         android:textAlignment="textStart"
-        android:textSize="20sp" />
+        android:textSize="20sp"/>
 
     <Switch
         android:id="@+id/opinionSwitch"
@@ -70,7 +69,6 @@
         android:layout_height="wrap_content"
         android:layout_weight=".25"
         android:fontFamily="sans-serif-light"
-        android:gravity="center|right"
         android:paddingLeft="80dp"
         android:paddingRight="80dp"
         android:text="Opinion"
@@ -83,7 +81,6 @@
         android:layout_height="wrap_content"
         android:layout_weight=".25"
         android:fontFamily="sans-serif-light"
-        android:gravity="center|right"
         android:paddingLeft="80dp"
         android:paddingRight="80dp"
         android:text="Environment"
@@ -96,7 +93,6 @@
         android:layout_height="wrap_content"
         android:layout_weight=".25"
         android:fontFamily="sans-serif-light"
-        android:gravity="center|right"
         android:paddingLeft="80dp"
         android:paddingRight="80dp"
         android:text="Sports"

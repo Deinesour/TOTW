@@ -22,7 +22,6 @@
             android:layout_weight="1"
             android:background="#C8000000"
             android:fontFamily="sans-serif-condensed-medium"
-            android:gravity="top"
             android:paddingTop="6dp"
             android:paddingBottom="6dp"
             android:text="Title"
@@ -36,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="200"
-            android:src="@drawable/logo" />
+            android:src="@drawable/logo_new" />
 
     </LinearLayout>
 

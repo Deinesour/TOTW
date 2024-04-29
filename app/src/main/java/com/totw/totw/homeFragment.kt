@@ -1,6 +1,8 @@
 package com.totw.totw
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -62,6 +64,10 @@ class homeFragment : Fragment(), OnArticleSelectedListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var textViewLoading: TextView
     private lateinit var sharedViewModel: SharedViewModel
+    private lateinit var sharedPrefGen: SharedPreferences
+    private lateinit var sharedPrefEnviron: SharedPreferences
+    private lateinit var sharedPrefSports: SharedPreferences
+    private lateinit var sharedPrefOpinion: SharedPreferences
     private var isGeneral =  false
     var isOpinion = false
     var isSports = false
@@ -83,15 +89,19 @@ class homeFragment : Fragment(), OnArticleSelectedListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
+        sharedPrefGen = requireContext().getSharedPreferences("generalSwitchState", Context.MODE_PRIVATE)
+        sharedPrefOpinion = requireContext().getSharedPreferences("opinionSwitchState", Context.MODE_PRIVATE)
+        sharedPrefEnviron = requireContext().getSharedPreferences("environSwitchState", Context.MODE_PRIVATE)
+        sharedPrefSports = requireContext().getSharedPreferences("sportsSwitchState", Context.MODE_PRIVATE)
 
         // Observe switch states
-        sharedViewModel.switchStates.observe(viewLifecycleOwner, Observer { switchStates ->
-            val switchStates = sharedViewModel.switchStates.value
-            isGeneral = switchStates?.get("general") ?: false
-            isOpinion = switchStates?.get("opinion") ?: false
-            isSports = switchStates?.get("sports") ?: false
-            isEnviron = switchStates?.get("environment") ?: false
-        })
+        //sharedViewModel.switchStates.observe(viewLifecycleOwner, Observer { switchStates ->
+            //val switchStates = sharedViewModel.switchStates.value
+        isGeneral = sharedPrefGen.getBoolean("generalSwitchState", false)
+        isOpinion = sharedPrefOpinion.getBoolean("opinionSwitchState", false)
+        isSports = sharedPrefSports.getBoolean("sportsSwitchState", false)
+        isEnviron = sharedPrefEnviron.getBoolean("environSwitchState", false)
+        //})
 
         // URL to fetch JSON from
         // Category codes for URL:

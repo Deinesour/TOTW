@@ -18,7 +18,11 @@ class NotificationsFragment : Fragment() {
     private lateinit var opinionSwitch: Switch
     private lateinit var environSwitch: Switch
     private lateinit var sportsSwitch: Switch
-    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var sharedPreferencesNotif: SharedPreferences
+    private lateinit var sharedPreferencesGen: SharedPreferences
+    private lateinit var sharedPreferencesOpinion: SharedPreferences
+    private lateinit var sharedPreferencesEnviron: SharedPreferences
+    private lateinit var sharedPreferencesSports: SharedPreferences
     private lateinit var sharedViewModel: SharedViewModel
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -37,18 +41,21 @@ class NotificationsFragment : Fragment() {
         environSwitch = view.findViewById<Switch>(R.id.environSwitch)
         sportsSwitch = view.findViewById<Switch>(R.id.sportsSwitch)
 
-        sharedPreferences = requireContext().getSharedPreferences("SwitchState", Context.MODE_PRIVATE)
+        sharedPreferencesNotif = requireContext().getSharedPreferences("switchState", Context.MODE_PRIVATE)
+        sharedPreferencesGen = requireContext().getSharedPreferences("generalSwitchState", Context.MODE_PRIVATE)
+        sharedPreferencesOpinion = requireContext().getSharedPreferences("opinionSwitchState", Context.MODE_PRIVATE)
+        sharedPreferencesEnviron = requireContext().getSharedPreferences("environSwitchState", Context.MODE_PRIVATE)
+        sharedPreferencesSports = requireContext().getSharedPreferences("sportsSwitchState", Context.MODE_PRIVATE)
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
 
-        notifSwitch.isChecked = sharedPreferences.getBoolean("switchState", false)
-        generalSwitch.isChecked = sharedViewModel.getSwitchState("general")
-        opinionSwitch.isChecked = sharedViewModel.getSwitchState("opinion")
-        environSwitch.isChecked = sharedViewModel.getSwitchState("environment")
-        sportsSwitch.isChecked = sharedViewModel.getSwitchState("sports")
-
+        notifSwitch.isChecked = sharedPreferencesNotif.getBoolean("switchState", false)
+        generalSwitch.isChecked = sharedPreferencesGen.getBoolean("generalSwitchState", false)
+        opinionSwitch.isChecked = sharedPreferencesOpinion.getBoolean("opinionSwitchState", false)
+        environSwitch.isChecked = sharedPreferencesEnviron.getBoolean("environSwitchState", false)
+        sportsSwitch.isChecked = sharedPreferencesSports.getBoolean("sportsSwitchState", false)
 
         notifSwitch.setOnCheckedChangeListener{_, isChecked ->
-            sharedPreferences.edit().putBoolean("switchState", isChecked).apply()
+            sharedPreferencesNotif.edit().putBoolean("switchState", isChecked).apply()
             if(isChecked)
                 Notification.scheduleNotification(requireContext())
             else{
@@ -56,15 +63,19 @@ class NotificationsFragment : Fragment() {
             }
         }
         generalSwitch.setOnCheckedChangeListener { _, isChecked ->
+            sharedPreferencesGen.edit().putBoolean("generalSwitchState", isChecked).apply()
             sharedViewModel.setSwitchState("general", isChecked)
         }
         opinionSwitch.setOnCheckedChangeListener { _, isChecked ->
+            sharedPreferencesOpinion.edit().putBoolean("opinionSwitchState", isChecked).apply()
             sharedViewModel.setSwitchState("opinion", isChecked)
         }
         environSwitch.setOnCheckedChangeListener { _, isChecked ->
+            sharedPreferencesEnviron.edit().putBoolean("environSwitchState", isChecked).apply()
             sharedViewModel.setSwitchState("environment", isChecked)
         }
         sportsSwitch.setOnCheckedChangeListener { _, isChecked ->
+            sharedPreferencesSports.edit().putBoolean("sportsSwitchState", isChecked).apply()
             sharedViewModel.setSwitchState("sports", isChecked)
         }
         return view
