@@ -107,7 +107,7 @@ class homeFragment : Fragment(), OnArticleSelectedListener {
         // URL to fetch JSON from
         // Category codes for URL:
         // 8 = Environment, 7 = Opinion, 6 = Sports, 5 = ???
-        var url = "https://topotheworld.org/wp-json/wp/v2/posts?_embed&per_page=100"
+        var url = "https://topotheworld.org/wp-json/wp/v2/posts?_embed&per_page=75"
 
         textViewHeader = view.findViewById(R.id.textViewHeader)
         recyclerView = view.findViewById(R.id.recyclerViewArticles)
